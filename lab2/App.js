@@ -64,7 +64,8 @@
  
    const _ = require("lodash"); 
    let mean_val = _.mean([15, 7, 38, 46, 82]);
- 
+   let max =_.max([15, 7, 38, 46, 82]);
+   let min =_.min([15, 7, 38, 46, 82]);
    return (
      
      <SafeAreaView style={backgroundStyle}>
@@ -83,7 +84,13 @@
              
              <Section>
              <Text>Średnia dla liczb[15,7,38,46,82] wynosi: {mean_val}</Text>
-               
+             
+             </Section>
+             <Section>
+             <Text>Max dla liczb[15,7,38,46,82] wynosi: {max}</Text>
+             </Section>
+             <Section>
+             <Text>Min dla liczb[15,7,38,46,82] wynosi: {min}</Text>
              </Section>
            {/* <Section title="Step One">
              Edit <Text style={styles.highlight}>App.js</Text> to change this
