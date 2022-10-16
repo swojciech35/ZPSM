@@ -88,7 +88,6 @@ let srednia=0;
 let waga=0
 for(let i=0; i<user.allGrades.length;i++){
 
-//  srednia+=_.sum(user.allGrades[i].grades)*user.allGrades[i].weight;
 srednia+=_.sum(user.allGrades[i].grades)*user.allGrades[i].weight;
 waga+=user.allGrades[i].weight*user.allGrades[i].grades.length;
 
@@ -96,13 +95,25 @@ waga+=user.allGrades[i].weight*user.allGrades[i].grades.length;
 
   return(user.name+" "+user.surname+" "+srednia/waga)
  }
+function findWeight1(){ 
+   return("subject name:"+_.find(user.allGrades,weight1=>{return weight1.weight===1}).subjectName );
+}
+
  let x=wynik(user);
-  return (
+
+ return (
     <Section>
       <Text>
         {x}
       </Text>
+      
+      <Text>
+        
+        {"\n\n"+ findWeight1()}
+
+      </Text>
     </Section>
+    
     
   );
 };
