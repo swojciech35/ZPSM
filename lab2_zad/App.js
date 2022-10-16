@@ -101,6 +101,24 @@ function findWeight1(){
 
  let x=wynik(user);
 
+ const collections = [
+  {},
+  15,
+  "hello@test.pl",
+  null,
+  ['aaa', 'bbb', 5],
+  'admin@gmail.com',
+  undefined,
+  'a34@yahoo.com',
+  '321@a',
+  '321.pl'
+  ];
+  
+
+  function getMails(collections){
+    return(_.filter(collections,function(o){ return /^[-\w\.]+@([-\w]+\.)+[a-z]+$/i.test(o) }).sort())
+  }
+
  return (
     <Section>
       <Text>
@@ -112,6 +130,12 @@ function findWeight1(){
         {"\n\n"+ findWeight1()}
 
       </Text>
+      <Text>
+        
+        {"\n\n"+ getMails(collections)}
+
+      </Text>
+      
     </Section>
     
     
