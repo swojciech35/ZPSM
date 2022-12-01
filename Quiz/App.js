@@ -5,14 +5,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Home from './components/Home';
 import Result from './components/Result';
+import Test from './components/Test';
 
-function Quiz() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
-      <Text style={{color:'black'}}>Quiz Screen</Text>
-    </View>
-  );
-}
 
 
 const Drawer = createDrawerNavigator();
@@ -21,7 +15,7 @@ function MyDrawer() {
   return (
     <Drawer.Navigator useLegacyImplementation>
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Quiz" component={Quiz} />
+      <Drawer.Screen name="Test" component={Test} />
       <Drawer.Screen name="Result" component={Result} />
     </Drawer.Navigator>
   );
