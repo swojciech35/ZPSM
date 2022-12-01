@@ -13,26 +13,24 @@ function Test() {
             <Text style={{ color: 'black',fontSize:20, }}>Tutaj kiedyś będzie pasek </Text>    
         </View>
         <View style={{justifyContent:'center',alignItems:'center',margin:25}}>
-        <Text style={{ color: 'black',fontSize:20, }}>Tutaj będzie treść ptytania </Text>    
-        <Text style={{ color: 'black',fontSize:15, }}>tu jakiś tam tekst xD </Text>  
-        <Text style={{ color: 'black',fontSize:15, }}>tu jakiś tam tekst xD </Text> 
-        <Text style={{ color: 'black',fontSize:15, }}>tu jakiś tam tekst xD </Text>   
+            <Text style={{ color: 'black',fontSize:20, }}>Tutaj będzie treść ptytania </Text>    
+            <Text style={{ color: 'black',fontSize:15, }}>tu jakiś tam tekst xD </Text>  
+            <Text style={{ color: 'black',fontSize:15, }}>tu jakiś tam tekst xD </Text> 
+            <Text style={{ color: 'black',fontSize:15, }}>tu jakiś tam tekst xD </Text>   
         </View>
         <View style={styles.answerBox}>
             <TouchableOpacity style={styles.button}>
                 <Text style={{fontSize:15,color:"black",textAlign:'center'}}>Answer A</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
-            <Text style={{fontSize:15,color:"black",textAlign:'center'}}>Answer B</Text>
+                <Text style={{fontSize:15,color:"black",textAlign:'center'}}>Answer B</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
-            <Text style={{fontSize:15,color:"black",textAlign:'center'}}>Answer C</Text>
+                <Text style={{fontSize:15,color:"black",textAlign:'center'}}>Answer C</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
-            <Text style={{fontSize:15,color:"black",textAlign:'center'}}>Answer D</Text>
+                <Text style={{fontSize:15,color:"black",textAlign:'center'}}>Answer D</Text>
             </TouchableOpacity>
-            
-
         </View>
         </>
     );
