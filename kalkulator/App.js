@@ -418,4 +418,3 @@ const buttonsmap=buttons.map((items)=>(
  });
  
  export default App;
- 
