@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Alert} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
 import AnswerBox from './elements/AnswerBox';
@@ -16,6 +16,8 @@ function Test(props) {
     if (currentIndex < questions.length - 1) {
       setIndex(currentIndex + 1);
       setQuestion(questions[currentIndex + 1]);
+    }else{
+        Alert.alert("Points: "+currentPoints+"/"+questions.length)
     }
   };
 
