@@ -56,7 +56,50 @@ export default function App() {
         }
         ],
         "duration": 30
-        },
+        },{
+          "question": "Który wódz po śmierci Gajusza Mariusza, prowadził wojnę domową z Sullą ?",
+          "answers": [
+          {
+          "content": "LUCJUSZ CYNNA",
+          "isCorrect": true
+          },
+          {
+          "content": "JULIUSZ CEZAR",
+          "isCorrect": false
+          },
+          {
+          "content": "LUCJUSZ MURENA",
+          "isCorrect": false
+          },
+          {
+          "content": "MAREK KRASSUS",
+          "isCorrect": false
+          }
+          ],
+          "duration": 30
+          },
+          {
+            "question": "2Który wódz po śmierci Gajusza Mariusza, prowadził wojnę domową z Sullą ?",
+            "answers": [
+            {
+            "content": "2LUCJUSZ CYNNA",
+            "isCorrect": true
+            },
+            {
+            "content": "2JULIUSZ CEZAR",
+            "isCorrect": false
+            },
+            {
+            "content": "2LUCJUSZ MURENA",
+            "isCorrect": false
+            },
+            {
+            "content": "2MAREK KRASSUS",
+            "isCorrect": false
+            }
+            ],
+            "duration": 30
+            },
   ];
   const TestProps = () => (
     <Test

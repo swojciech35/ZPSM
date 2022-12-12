@@ -1,11 +1,11 @@
 import React from 'react';
-// import type {Node} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {StyleSheet} from 'react-native';
 
 const AnswerBox = props => {
   const answer = props.answerss;
 
+  const correctAnswer = props.click;
   const mapAnswer = answer.map((anstab, index) => (
     <TouchableOpacity
       key={index}
@@ -15,6 +15,11 @@ const AnswerBox = props => {
         minWidth: '90%',
         borderWidth: 1,
         marginTop: 10,
+      }}
+      onPress={() => {
+        {
+          correctAnswer(anstab.isCorrect);
+        }
       }}>
       <Text style={{fontSize: 30, color: 'black', textAlign: 'center'}}>
         {anstab.content}

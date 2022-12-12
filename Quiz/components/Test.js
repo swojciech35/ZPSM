@@ -5,11 +5,6 @@ import {StyleSheet} from 'react-native';
 import AnswerBox from './elements/AnswerBox';
 import Question from './elements/Question';
 function Test(props) {
-  // const answer=props.answerss;
-
-  // const mapAnswer=answer.map((anstab)=>
-  // <TouchableOpacity style={{backgroundColor:"gray",display:'flex',minWidth:"90%",borderWidth:1,marginTop:10}}><Text style={{fontSize:30,color:"black",textAlign:'center'}}>{anstab.content}</Text></TouchableOpacity>
-  // )
   const questions = props.answerss;
   const [currentIndex, setIndex] = React.useState(0);
   const [currentQuestion, setQuestion] = React.useState(
@@ -24,6 +19,13 @@ function Test(props) {
     }
   };
 
+  const checkAnswer = answer => {
+    if (answer === true) {
+      setPoints(currentPoints + 1);
+    }
+    nextQuestion();
+  };
+
   return (
     <>
       <View>{console.log(currentQuestion.answers)}</View>
@@ -34,10 +36,10 @@ function Test(props) {
         duration={currentQuestion.duration}
       />
 
-      <AnswerBox answerss={currentQuestion.answers} />
+      <AnswerBox answerss={currentQuestion.answers} click={checkAnswer} />
       <View>
-        <TouchableOpacity onPress={nextQuestion}>
-          <Text>Next</Text>
+        <TouchableOpacity onPress={() => console.log(currentPoints)}>
+          <Text>Points</Text>
         </TouchableOpacity>
       </View>
     </>
