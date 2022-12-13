@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import SplashScreen from 'react-native-splash-screen'
 import Home from './components/Home';
 import Result from './components/Result';
 import Test from './components/Test';
@@ -126,6 +126,7 @@ export default function App() {
         if (value != null) {
           setrulesFirst('1');
           console.log('zmiana na 1');
+          // SplashScreen.hide();
         }
       });
     } catch (e) {
@@ -134,6 +135,9 @@ export default function App() {
   };
 
   React.useEffect(() => {
+    
+    SplashScreen.hide();
+
     console.log('hehe działam');
     getData();
   }, []);
