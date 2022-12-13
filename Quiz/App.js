@@ -122,7 +122,7 @@ export default function App() {
 
   const getData = async () => {
     try {
-      AsyncStorage.getItem('@RulesKey').then(value => {
+      await AsyncStorage.getItem('@RulesKey').then(value => {
         if (value != null) {
           setrulesFirst('1');
           console.log('zmiana na 1');
