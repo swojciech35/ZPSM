@@ -9,6 +9,7 @@ function Test({route, navigation}) {
   const [isLoading, setLoading] = React.useState(true);
   const [test, setTest] = React.useState([]);
   const [start, setStart] = React.useState(false);
+
   const getTest = async () => {
     let link = 'https://tgryl.pl/quiz/test/';
     link += id;
@@ -38,6 +39,7 @@ function Test({route, navigation}) {
       setIndex(currentIndex + 1);
       setQuestion(questions[currentIndex + 1]);
     } else {
+      sendResult();
       navigation.navigate('Result');
       Alert.alert('Points: ' + currentPoints + '/' + questions.length);
     }
@@ -55,6 +57,25 @@ function Test({route, navigation}) {
     console.log(id);
   }, []);
 
+  const sendResult = async () => {
+    try {
+      await fetch('http://tgryl.pl/quiz/result', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nick: text,
+          score: currentPoints,
+          total: test.tasks.length,
+          type: test.name,
+        }),
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <>
       {isLoading ? (
@@ -100,8 +121,7 @@ function Test({route, navigation}) {
                 click={checkAnswer}
               />
               <View>
-                <TouchableOpacity
-                  onPress={() => setQuestion(questions[currentIndex])}>
+                <TouchableOpacity onPress={() => console.log(test)}>
                   <Text>Points</Text>
                 </TouchableOpacity>
               </View>
