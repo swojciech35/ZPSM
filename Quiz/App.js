@@ -33,16 +33,18 @@ export default function App() {
         {rulesFirst == '0' ? (
           <Drawer.Screen name="Rules" component={Rules} />
         ) : null}
-        <Drawer.Screen name="Home" component={Home} />
-        {/* <Drawer.Screen name="Test" component={TestProps} /> */}
+        <Drawer.Screen
+          name="Home"
+          component={Home}
+          initialParams={{testList: tests}}
+        />
         {tests.map((item, index) => {
-          const TestPropss = () => <Test id={item.id} />;
-
           return (
             <Drawer.Screen
               key={index}
               name={item.name}
-              component={TestPropss}
+              component={Test}
+              initialParams={{id: item.id}}
             />
           );
         })}

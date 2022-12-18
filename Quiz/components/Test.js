@@ -4,13 +4,14 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
 import AnswerBox from './elements/AnswerBox';
 import Question from './elements/Question';
-function Test(props) {
+function Test({route, navigation}) {
+  const {id} = route.params;
   const [isLoading, setLoading] = React.useState(true);
   const [test, setTest] = React.useState([]);
   const [start, setStart] = React.useState(false);
   const getTest = async () => {
     let link = 'https://tgryl.pl/quiz/test/';
-    link += props.id;
+    link += id;
     try {
       const response = await fetch(link);
       const json = await response.json();
@@ -26,8 +27,6 @@ function Test(props) {
   const [text, onChangeText] = React.useState(null);
   const [questions, setQuest] = React.useState([{question: null, answers: []}]);
 
-  // const questions = props.answerss;
-  // const questions = quest;
   const [currentIndex, setIndex] = React.useState(0);
   const [currentQuestion, setQuestion] = React.useState(
     questions[currentIndex],
@@ -39,6 +38,7 @@ function Test(props) {
       setIndex(currentIndex + 1);
       setQuestion(questions[currentIndex + 1]);
     } else {
+      navigation.navigate('Result');
       Alert.alert('Points: ' + currentPoints + '/' + questions.length);
     }
   };
@@ -52,6 +52,7 @@ function Test(props) {
 
   React.useEffect(() => {
     getTest();
+    console.log(id);
   }, []);
 
   return (
