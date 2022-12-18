@@ -31,6 +31,7 @@ function Home({navigation}) {
       text={item.description}
       lvl={item.level}
       colorText={'#000000'}
+      onPress={()=>navigation.navigate(item.name)}
     />
   );
 
