@@ -1,7 +1,12 @@
 import * as React from 'react';
 import {View, Text, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerItem,
+  DrawerItemList,
+  DrawerContentScrollView,
+} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import Home from './components/Home';
@@ -28,9 +33,23 @@ export default function App() {
     }
   };
 
+  function CustomDrawerContent(props) {
+    return (
+      <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props} />
+        <DrawerItem
+          label="Random"
+          onPress={() => props.navigation.navigate(_.sample(tests).name)}
+        />
+      </DrawerContentScrollView>
+    );
+  }
+
   function MyDrawer() {
     return (
-      <Drawer.Navigator useLegacyImplementation>
+      <Drawer.Navigator
+        useLegacyImplementation
+        drawerContent={props => <CustomDrawerContent {...props} />}>
         {rulesFirst == '0' ? (
           <Drawer.Screen name="Rules" component={Rules} />
         ) : null}
