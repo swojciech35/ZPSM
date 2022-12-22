@@ -12,6 +12,7 @@ import Rules from './components/Rules';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  let _ = require('lodash');
   const [isLoading, setLoading] = React.useState(true);
   const [tests, setTests] = React.useState([]);
 
@@ -19,7 +20,7 @@ export default function App() {
     try {
       const response = await fetch('https://tgryl.pl/quiz/tests');
       const json = await response.json();
-      setTests(json);
+      setTests(_.shuffle(json));
     } catch (e) {
       console.log(e);
     } finally {
