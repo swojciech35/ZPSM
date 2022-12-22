@@ -6,6 +6,7 @@ import AnswerBox from './elements/AnswerBox';
 import Question from './elements/Question';
 function Test({route, navigation}) {
   const {id} = route.params;
+  let _ = require('lodash');
   const [isLoading, setLoading] = React.useState(true);
   const [test, setTest] = React.useState([]);
   const [start, setStart] = React.useState(false);
@@ -17,7 +18,7 @@ function Test({route, navigation}) {
       const response = await fetch(link);
       const json = await response.json();
       setTest(json);
-      await setQuest(json.tasks);
+      await setQuest(_.shuffle(json.tasks));
     } catch (e) {
       console.log(e);
     } finally {
@@ -117,7 +118,7 @@ function Test({route, navigation}) {
                 duration={currentQuestion.duration}
               />
               <AnswerBox
-                answerss={currentQuestion.answers}
+                answerss={_.shuffle(currentQuestion.answers)}
                 click={checkAnswer}
               />
               <View>
