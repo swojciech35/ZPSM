@@ -17,14 +17,12 @@ import {openDatabase} from 'react-native-sqlite-storage';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-
-  const db = openDatabase({name: 'Quiz_db.db', createFromLocation: 1});
-  let [flatListItems, setFlatListItems] = React.useState([]);
+  const db = openDatabase({name: 'Quiz.db', createFromLocation: 1});
   let _ = require('lodash');
   const [isLoading, setLoading] = React.useState(true);
   const [tests, setTests] = React.useState([]);
 
-  //get tests from internet 
+  //get tests from internet
   const getTests = async () => {
     try {
       const response = await fetch('https://tgryl.pl/quiz/tests');
@@ -38,8 +36,8 @@ export default function App() {
     }
   };
 
-  const saveDatainDB=(data)=>{
-    for(let i=0;i<data.length;i++){
+  const saveDatainDB = data => {
+    for (let i = 0; i < data.length; i++) {
       console.log(data[i]);
       db.transaction(function (tx) {
         tx.executeSql(
@@ -48,13 +46,13 @@ export default function App() {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-              console.log("Save!")
+              console.log('Save!');
             } else console.log('Save Failed');
           },
         );
       });
     }
-  }
+  };
 
   function CustomDrawerContent(props) {
     return (
@@ -110,28 +108,24 @@ export default function App() {
     }
   };
 
-  //gat tests from sqlite
-  const getTestFromDatabase=()=>{
-    db.transaction((tx) => {
-      tx.executeSql('SELECT * FROM tests',
-      [],
-      (tx, results) => {
+  //get tests from sqlite
+  const getTestFromDatabase = () => {
+    db.transaction(tx => {
+      tx.executeSql('SELECT * FROM tests', [], (tx, results) => {
         var temp = [];
         for (let i = 0; i < results.rows.length; ++i)
           temp.push(results.rows.item(i));
-        setFlatListItems(temp);
         setTests(temp);
       });
     });
-  }
+  };
 
   React.useEffect(() => {
     getTests();
     SplashScreen.hide();
-getTestFromDatabase();
+    getTestFromDatabase();
     console.log('hehe działam');
     getData();
-   
   }, []);
 
   const [rulesFirst, setrulesFirst] = React.useState('0');
