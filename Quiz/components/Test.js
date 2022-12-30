@@ -4,12 +4,47 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {StyleSheet} from 'react-native';
 import AnswerBox from './elements/AnswerBox';
 import Question from './elements/Question';
+import {openDatabase} from 'react-native-sqlite-storage';
 function Test({route, navigation}) {
   const {id} = route.params;
+  const db = openDatabase({name: 'Quiz.db', createFromLocation: 1});
   let _ = require('lodash');
   const [isLoading, setLoading] = React.useState(true);
   const [test, setTest] = React.useState([]);
   const [start, setStart] = React.useState(false);
+  const [testDB, setTestDB] = React.useState([]);
+
+  const getTestFromDatabase = () => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'SELECT quiz_data FROM quiz where id=?',
+        [id],
+        (tx, results) => {
+          setTestDB(JSON.parse(results.rows.item(0).quiz_data));
+          //to load from database 2 lines  V
+          setTest(JSON.parse(results.rows.item(0).quiz_data));
+          setQuest(_.shuffle(JSON.parse(results.rows.item(0).quiz_data).tasks));
+
+          // setQuestion(questions[currentIndex]);       //chyba zbędne
+        },
+      );
+    });
+  };
+  const saveDatainDB = data => {
+    console.log(typeof data);
+    db.transaction(function (tx) {
+      tx.executeSql(
+        'INSERT INTO quiz (id, quiz_data) VALUES (?,?)',
+        [id, data],
+        (tx, results) => {
+          console.log('Results', results.rowsAffected);
+          if (results.rowsAffected > 0) {
+            console.log('Save!');
+          } else console.log('Save Failed');
+        },
+      );
+    });
+  };
 
   const getTest = async () => {
     let link = 'https://tgryl.pl/quiz/test/';
@@ -17,12 +52,14 @@ function Test({route, navigation}) {
     try {
       const response = await fetch(link);
       const json = await response.json();
-      setTest(json);
-      await setQuest(_.shuffle(json.tasks));
+      saveDatainDB(JSON.stringify(json));
+      // setTest(json);
+      // await setQuest(_.shuffle(json.tasks));
     } catch (e) {
       console.log(e);
     } finally {
-      setQuestion(questions[currentIndex]);
+      getTestFromDatabase();
+      // setQuestion(questions[currentIndex]);
       setLoading(false);
     }
   };
@@ -33,6 +70,7 @@ function Test({route, navigation}) {
   const [currentQuestion, setQuestion] = React.useState(
     questions[currentIndex],
   );
+
   const [currentPoints, setPoints] = React.useState(0);
 
   const nextQuestion = () => {
@@ -55,6 +93,7 @@ function Test({route, navigation}) {
 
   React.useEffect(() => {
     getTest();
+    getTestFromDatabase();
     console.log(id);
   }, []);
 
@@ -100,6 +139,8 @@ function Test({route, navigation}) {
                 }}
                 onPress={() => {
                   setQuestion(questions[currentIndex]);
+
+                  // console.log(questions);
                   setStart(true);
                 }}>
                 <Text

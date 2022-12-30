@@ -38,7 +38,7 @@ export default function App() {
 
   const saveDatainDB = data => {
     for (let i = 0; i < data.length; i++) {
-      console.log(data[i]);
+      
       db.transaction(function (tx) {
         tx.executeSql(
           'INSERT INTO tests (id, name, description,level) VALUES (?,?,?,?)',
