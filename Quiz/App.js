@@ -70,6 +70,19 @@ export default function App() {
           label="Random"
           onPress={() => props.navigation.navigate(_.sample(tests).name)}
         />
+         <DrawerItem
+          label="GET TEST"
+          onPress={() => {
+            if(netinfo===true){
+              setLoading(true);
+              getTests();
+            }
+              else{
+                alert(`Brak Internetu`);
+              }
+
+          }}
+        />
       </DrawerContentScrollView>
     );
   }
