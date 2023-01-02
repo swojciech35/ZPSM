@@ -14,6 +14,7 @@ import Result from './components/Result';
 import Test from './components/Test';
 import Rules from './components/Rules';
 import {openDatabase} from 'react-native-sqlite-storage';
+import NetInfo from '@react-native-community/netinfo';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -21,10 +22,11 @@ export default function App() {
   let _ = require('lodash');
   const [isLoading, setLoading] = React.useState(true);
   const [tests, setTests] = React.useState([]);
-
+  const [netinfo, setNetInfo] = React.useState('');
   //get tests from internet
   const getTests = async () => {
     try {
+      // console.log(netinfo);
       const response = await fetch('https://tgryl.pl/quiz/tests');
       const json = await response.json();
       saveDatainDB(json);
@@ -35,10 +37,16 @@ export default function App() {
       setLoading(false);
     }
   };
-
+  const handleGetInfoNet = () => {
+    NetInfo.fetch().then(state => {
+      setNetInfo(state.isConnected);
+      if (!state.isConnected) {
+        alert(`Brak Internetu`);
+      }
+    });
+  };
   const saveDatainDB = data => {
     for (let i = 0; i < data.length; i++) {
-      
       db.transaction(function (tx) {
         tx.executeSql(
           'INSERT INTO tests (id, name, description,level) VALUES (?,?,?,?)',
@@ -115,18 +123,24 @@ export default function App() {
         var temp = [];
         for (let i = 0; i < results.rows.length; ++i)
           temp.push(results.rows.item(i));
-        setTests(temp);
+        setTests(_.shuffle(temp));
+        setLoading(false);
       });
     });
   };
 
   React.useEffect(() => {
-    getTests();
-    SplashScreen.hide();
-    getTestFromDatabase();
+    handleGetInfoNet();
+    if (netinfo === true) {
+      getTests();
+    }
+    if (netinfo === false) {
+      getTestFromDatabase();
+    }
     console.log('hehe działam');
     getData();
-  }, []);
+    SplashScreen.hide();
+  }, [netinfo]);
 
   const [rulesFirst, setrulesFirst] = React.useState('0');
   return (
