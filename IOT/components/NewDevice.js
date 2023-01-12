@@ -1,8 +1,10 @@
 import React from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import Slider from '@react-native-community/slider';
+import {getData, storeData} from './component/AsyncFunction';
 
 function NewDevice({navigation}) {
+  const [devices, setDevices] = React.useState([]);
   const [name, onChangeName] = React.useState(null);
   const [place, onChangePlace] = React.useState(null);
   const [command, onChangeCommand] = React.useState(null);
@@ -15,7 +17,23 @@ function NewDevice({navigation}) {
   const [sliderValueBlue, setSliderValueBlue] = React.useState(
     Math.floor(Math.random() * 255) + 0,
   );
-
+  const saveDevice = () => {
+    let temp = devices;
+    console.log('test');
+    temp.push({
+      name: name,
+      place: place,
+      command: command,
+      color: `rgb(${sliderValueRed},${sliderValueGreen},${sliderValueBlue})`,
+    });
+    console.log(temp);
+    storeData('@Devices', temp);
+  };
+  React.useEffect(() => {
+    getData('@Devices').then(value => {
+      setDevices(value);
+    });
+  }, []);
   return (
     <View style={{flex: 1, padding: 30}}>
       <TextInput
@@ -94,6 +112,9 @@ function NewDevice({navigation}) {
             margin: 10,
             padding: 5,
             alignItems: 'center',
+          }}
+          onPress={() => {
+            saveDevice();
           }}>
           <Text style={{color: '#000000', fontSize: 20}}>Save</Text>
         </TouchableOpacity>

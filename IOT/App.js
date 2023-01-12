@@ -5,7 +5,6 @@ import SplashScreen from 'react-native-splash-screen';
 import Devices from './components/Devices';
 import Connection from './components/Connection';
 import NewDevice from './components/NewDevice';
-import { hide } from 'yargs';
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
