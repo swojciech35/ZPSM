@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import Slider from '@react-native-community/slider';
 
-function NewDevice() {
+function NewDevice({navigation}) {
   const [name, onChangeName] = React.useState(null);
   const [place, onChangePlace] = React.useState(null);
   const [command, onChangeCommand] = React.useState(null);
@@ -75,6 +75,29 @@ function NewDevice() {
         minimumTrackTintColor="#0000FF"
         maximumTrackTintColor="#0000FF"
       />
+      <View style={{flexDirection: 'row', display: 'flex'}}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#B5B5B5',
+            flex: 1,
+            margin: 10,
+            padding: 5,
+            alignItems: 'center',
+          }}
+          onPress={() => navigation.goBack()}>
+          <Text style={{color: '#000000', fontSize: 20}}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#B5B5B5',
+            flex: 1,
+            margin: 10,
+            padding: 5,
+            alignItems: 'center',
+          }}>
+          <Text style={{color: '#000000', fontSize: 20}}>Save</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
