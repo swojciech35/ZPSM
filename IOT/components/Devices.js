@@ -14,18 +14,48 @@ function Devices({navigation}) {
   }, []);
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <TouchableOpacity onPress={() => navigation.navigate('newDevice')}>
-        <View
-          style={{
-            borderWidth: 2,
-            padding: 30,
-            aspectRatio: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text style={{fontSize: 100, color: '#000000'}}>+</Text>
-        </View>
-      </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-evenly',
+        }}>
+        {devices != null
+          ? devices.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={{
+                  backgroundColor: item.color,
+                  borderWidth: 2,
+                  margin: 10,
+                  width: 150,
+                  height: 150,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text style={{fontSize: 40, textAlign: 'center'}}>
+                  {item.name}
+                </Text>
+                <Text style={{fontSize: 20, textAlign: 'center'}}>
+                  {item.place}
+                </Text>
+              </TouchableOpacity>
+            ))
+          : null}
+        <TouchableOpacity onPress={() => navigation.navigate('newDevice')}>
+          <View
+            style={{
+              borderWidth: 2,
+              margin: 10,
+              width: 150,
+              height: 150,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={{fontSize: 100, color: '#000000'}}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
