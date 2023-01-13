@@ -1,18 +1,22 @@
+import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Button} from 'react-native';
 import {TouchableOpacity} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import {getData} from './component/AsyncFunction';
 
 function Devices({navigation}) {
   const [devices, setDevices] = React.useState(null);
+  const isFocused=useIsFocused();
 
   React.useEffect(() => {
     console.log('sdhshgdhagshd');
     getData('@Devices').then(value => {
       setDevices(value);
     });
-  }, []);
+  }, [isFocused]);
   return (
+    <ScrollView>
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <View
         style={{
@@ -57,6 +61,7 @@ function Devices({navigation}) {
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
 }
 

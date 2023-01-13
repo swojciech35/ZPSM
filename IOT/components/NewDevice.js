@@ -28,6 +28,7 @@ function NewDevice({navigation}) {
     });
     console.log(temp);
     storeData('@Devices', temp);
+    navigation.goBack();
   };
   React.useEffect(() => {
     getData('@Devices').then(value => {
